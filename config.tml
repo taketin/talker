@@ -1,0 +1,13 @@
+[dropbox]
+appKey      = ""
+appSecret   = ""
+token       = ""
+
+[file]
+# "local_path" Please specify the path under $HOME
+remotePath  = ""
+localPath   = ""
+
+[talker]
+# "members" are entered in CSV
+members     = ""

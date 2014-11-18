@@ -1,0 +1,18 @@
+{
+    "ImportPath": "github.com/taketin/talker",
+    "GoVersion": "go1.3.3",
+    "Deps": [
+        {
+            "ImportPath": "github.com/stacktic/dropbox.git"
+        },
+        {
+            "ImportPath": "github.com/stacktic/oauth2.git"
+        },
+        {
+            "ImportPath": "github.com/golang/oauth2.git"
+        },
+        {
+            "ImportPath": "github.com/BurntSushi/toml.git"
+        },
+    ]
+}
