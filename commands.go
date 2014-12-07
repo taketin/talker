@@ -11,6 +11,7 @@ import (
 var Commands = []cli.Command{
 	commandSelect,
     commandRewind,
+	commandForward,
 }
 
 var selectFlags = []cli.Flag{
@@ -21,7 +22,7 @@ var selectFlags = []cli.Flag{
 var commandSelect = cli.Command{
 	Name:  "select",
 	Usage: `
-	The options are as follows:
+	Choose talker. The options are as follows:
 
 		-d (--dry) : dry run mode
 
@@ -35,10 +36,18 @@ var commandSelect = cli.Command{
 
 var commandRewind = cli.Command{
 	Name:  "rewind",
-	Usage: "",
+	Usage: "Remove the last of the talker from strage.",
 	Description: `
 `,
 	Action: doRewind,
+}
+
+var commandForward = cli.Command{
+	Name:  "forward",
+	Usage: "Add the given talker in storage.",
+	Description: `
+`,
+	Action: doForward,
 }
 
 func debug(v ...interface{}) {
@@ -76,4 +85,23 @@ func doSelect(c *cli.Context) {
 }
 
 func doRewind(c *cli.Context) {
+	finishedMember := finishedMemberFromStrage()
+	removeMember := finishedMember[len(finishedMember)-1]
+	saveFinishedMember(finishedMember[:len(finishedMember)-1])
+	fmt.Printf("'%s' remove from storage.\n", removeMember)
+}
+
+func doForward(c *cli.Context) {
+	name := ""
+	if len(c.Args()) > 0 {
+		name = c.Args()[0]
+	} else {
+		fmt.Printf("Please input forward name.\n")
+		os.Exit(1)
+	}
+
+	finishedMember := finishedMemberFromStrage()
+	finishedMember = append(finishedMember, name)
+	saveFinishedMember(finishedMember)
+	fmt.Printf("'%s' add to storage.\n", name)
 }
