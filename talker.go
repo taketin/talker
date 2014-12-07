@@ -1,9 +1,11 @@
 package main
 
 import (
+	"os"
 	"fmt"
 	"strings"
 	"github.com/BurntSushi/toml"
+	"github.com/codegangsta/cli"
 )
 
 var Configs Config
@@ -30,6 +32,15 @@ type TalkerConfig struct {
 }
 
 func main() {
+	app := cli.NewApp()
+	app.Name = "talker"
+	app.Version = Version
+	app.Usage = ""
+	app.Author = ""
+	app.Email = ""
+    app.Commands = Commands
+    
+	app.Run(os.Args)
 	if _, err = toml.DecodeFile("config.tml", &Configs); err != nil {
 		panic(err)
 	}
