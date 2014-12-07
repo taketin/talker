@@ -5,25 +5,31 @@ import(
 	"time"
 )
 
-func chooseTalker(members []string) (string) {
+func chooseTalker(members []string, save bool) (talker string, isLast bool) {
 	finishedMember := finishedMemberFromStrage()
+	notFinishedMember := getDiff(members, finishedMember)
+	isLast = false
 
-	notFinishedMember := compare(members, finishedMember)
 	if len(notFinishedMember) == 0 {
-		println("🍣🍣🍣  ALL members done! start the next round. 🍺🍺🍺")
 		notFinishedMember = members
 		finishedMember = []string{}
 	}
 
-	talker := choosingBy(notFinishedMember)
-
+	talker = choosingBy(notFinishedMember)
 	finishedMember = append(finishedMember, talker)
-	saveFinishedMember(finishedMember)
 
-	return talker
+	if !save {
+		saveFinishedMember(finishedMember)
+	}
+
+	if len(finishedMember) == len(members) {
+		isLast = true
+	}
+
+	return
 }
 
-func compare(members []string, finishedMember []string) ([]string) {
+func getDiff(members []string, finishedMember []string) ([]string) {
 	for _, val := range finishedMember {
 		for key2, val2 := range members {
 			if val == val2 {

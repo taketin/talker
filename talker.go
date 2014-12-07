@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
-	"strings"
+	"os"
 	"github.com/BurntSushi/toml"
+	"github.com/codegangsta/cli"
 )
 
 var Configs Config
@@ -34,7 +34,13 @@ func main() {
 		panic(err)
 	}
 
-	members := strings.Split(Configs.Talker.Members, ",")
-	talker := chooseTalker(members)
-	fmt.Printf("%s \n", talker)
+	app := cli.NewApp()
+	app.Name = "talker"
+	app.Version = Version
+	app.Usage = ""
+	app.Author = "taketin"
+	app.Email = "tksthdnr@gmail.com"
+	app.Commands = Commands
+
+	app.Run(os.Args)
 }

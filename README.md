@@ -12,9 +12,8 @@ It uses the dropbox in storage, it does not overlap anyone is running.
 ## Usage
 
 ```
-$ talker
+$ talker select
 
-// choosing by random
 > taketin
 ```
 
@@ -22,14 +21,14 @@ if all members selected
 
 ![screenshots1](screenshots/next_round.png)
 
-... start the next round!
+Other usage please look at the help in `talker -h`
 
 ## Install
 
 ```
 $ go get github.com/taketin/talker
 $ go get github.com/tools/godep
-$ cd {GO_ROOT}/src/github.com/talker
+$ cd {GO_ROOT}/src/github.com/taketin/talker
 $ godep get
 $ vi config.tml # edit your settings
 $ go install

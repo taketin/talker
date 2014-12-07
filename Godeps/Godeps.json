@@ -1,0 +1,28 @@
+{
+	"ImportPath": "github.com/taketin/talker",
+	"GoVersion": "go1.3.3",
+	"Deps": [
+		{
+			"ImportPath": "github.com/BurntSushi/toml",
+			"Comment": "v0.1.0-9-g3883ac1",
+			"Rev": "3883ac1ce943878302255f538fce319d23226223"
+		},
+		{
+			"ImportPath": "github.com/codegangsta/cli",
+			"Comment": "1.2.0-24-g7381bc4",
+			"Rev": "7381bc4e62942763475703c7edd405f1e42adf4f"
+		},
+		{
+			"ImportPath": "github.com/golang/oauth2/jws",
+			"Rev": "2d3ce25e9aad1d581a13ce3135495241291bfb6d"
+		},
+		{
+			"ImportPath": "github.com/stacktic/dropbox",
+			"Rev": "a07cde59964dd7d5b1d63307e4a09697116bc969"
+		},
+		{
+			"ImportPath": "github.com/stacktic/oauth2",
+			"Rev": "385498eeaa084e92b5624434e6221ebb35a5862b"
+		}
+	]
+}
