@@ -3,7 +3,8 @@ package main
 import (
 	"log"
 	"os"
-
+	"fmt"
+	"strings"
 	"github.com/codegangsta/cli"
 )
 
@@ -12,7 +13,6 @@ var Commands = []cli.Command{
     commandRewind,
     commandDryrun,
     commandRandom,
-    
 }
 
 
@@ -61,8 +61,10 @@ func assert(err error) {
 	}
 }
 
-
 func doSelect(c *cli.Context) {
+	members := strings.Split(Configs.Talker.Members, ",")
+	talker := chooseTalker(members)
+	fmt.Printf("%s \n", talker)
 }
 
 func doRewind(c *cli.Context) {
@@ -73,5 +75,4 @@ func doDryrun(c *cli.Context) {
 
 func doRandom(c *cli.Context) {
 }
-
 

@@ -2,8 +2,6 @@ package main
 
 import (
 	"os"
-	"fmt"
-	"strings"
 	"github.com/BurntSushi/toml"
 	"github.com/codegangsta/cli"
 )
@@ -32,20 +30,17 @@ type TalkerConfig struct {
 }
 
 func main() {
-	app := cli.NewApp()
-	app.Name = "talker"
-	app.Version = Version
-	app.Usage = ""
-	app.Author = ""
-	app.Email = ""
-    app.Commands = Commands
-    
-	app.Run(os.Args)
 	if _, err = toml.DecodeFile("config.tml", &Configs); err != nil {
 		panic(err)
 	}
 
-	members := strings.Split(Configs.Talker.Members, ",")
-	talker := chooseTalker(members)
-	fmt.Printf("%s \n", talker)
+	app := cli.NewApp()
+	app.Name = "talker"
+	app.Version = Version
+	app.Usage = ""
+	app.Author = "taketin"
+	app.Email = "tksthdnr@gmail.com"
+	app.Commands = Commands
+
+	app.Run(os.Args)
 }
