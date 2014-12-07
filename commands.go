@@ -11,17 +11,26 @@ import (
 var Commands = []cli.Command{
 	commandSelect,
     commandRewind,
-    commandDryrun,
-    commandRandom,
 }
 
+var selectFlags = []cli.Flag{
+	cli.BoolFlag{Name: "dry, d", Usage: "Dry run mode"},
+	cli.BoolFlag{Name: "random, r", Usage: "Without storage, choose at random"},
+}
 
 var commandSelect = cli.Command{
 	Name:  "select",
-	Usage: "",
+	Usage: `
+	The options are as follows:
+
+		-d (--dry) : dry run mode
+
+		-r (--random) : random choose mode (not use storage)
+`,
 	Description: `
 `,
 	Action: doSelect,
+	Flags: selectFlags,
 }
 
 var commandRewind = cli.Command{
@@ -31,23 +40,6 @@ var commandRewind = cli.Command{
 `,
 	Action: doRewind,
 }
-
-var commandDryrun = cli.Command{
-	Name:  "dryrun",
-	Usage: "",
-	Description: `
-`,
-	Action: doDryrun,
-}
-
-var commandRandom = cli.Command{
-	Name:  "random",
-	Usage: "",
-	Description: `
-`,
-	Action: doRandom,
-}
-
 
 func debug(v ...interface{}) {
 	if os.Getenv("DEBUG") != "" {
@@ -62,17 +54,26 @@ func assert(err error) {
 }
 
 func doSelect(c *cli.Context) {
+	isDryrun := c.Bool("dry")
+	isRandom := c.Bool("random")
+
 	members := strings.Split(Configs.Talker.Members, ",")
-	talker := chooseTalker(members)
+
+	talker := ""
+	isLast := false
+
+	if isRandom {
+		talker = choosingBy(members)
+	} else {
+		talker, isLast = chooseTalker(members, isDryrun)
+	}
+
 	fmt.Printf("%s \n", talker)
+
+	if (isLast) {
+		println("🍣🍣🍣  ALL members done! start the next round. 🍺🍺🍺")
+	}
 }
 
 func doRewind(c *cli.Context) {
 }
-
-func doDryrun(c *cli.Context) {
-}
-
-func doRandom(c *cli.Context) {
-}
-
