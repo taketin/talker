@@ -27,28 +27,9 @@ Other usage please look at the help in `talker -h`
 
 ```
 $ go get github.com/taketin/talker
-$ go get github.com/tools/godep
-$ cd {GO_ROOT}/src/github.com/taketin/talker
-$ godep get
 $ mkdir -p $GOPATH/config/talker
-$ mv config.tml $GOPATH/config/talker/
 $ vi config.tml # edit your settings
-$ go install
-$ which talker
-```
-
-how using ghq.
-
-```
-$ ghq get github.com/taketin/talker
-$ ghq get http://github.com/tools/godep
-$ ghq look talker
-$ godep get
-$ mkdir -p $GOPATH/config/talker
 $ mv config.tml $GOPATH/config/talker/
-$ vi config.tml # edit your settings
-$ go install
-$ which talker
 ```
 
 ## Contribution
