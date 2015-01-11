@@ -1,26 +1,27 @@
 package main
 
 import (
-	"os"
-	"bytes"
 	"bufio"
+	"bytes"
 	"io/ioutil"
+	"os"
+
 	"github.com/taketin/talker/storage"
 )
 
 var fp *os.File
 var err error
 
-func finishedMemberFromStrage() ([]string) {
+func finishedMemberFromStrage() []string {
 	setConfigToDropbox()
-	dropbox.DownloadFile(Configs.File.RemotePath, os.Getenv("HOME") + Configs.File.LocalPath)
+	dropbox.DownloadFile(Configs.File.RemotePath, os.Getenv("HOME")+Configs.File.LocalPath)
 	return readFile(os.Getenv("HOME") + Configs.File.LocalPath)
 }
 
 func saveFinishedMember(finishedMember []string) {
 	writeFile(finishedMember)
 	setConfigToDropbox()
-	dropbox.UploadFile(Configs.File.RemotePath, os.Getenv("HOME") + Configs.File.LocalPath)
+	dropbox.UploadFile(Configs.File.RemotePath, os.Getenv("HOME")+Configs.File.LocalPath)
 	removeFile()
 }
 
@@ -28,7 +29,7 @@ func setConfigToDropbox() {
 	dropbox.SetConfig(Configs.Dropbox.AppKey, Configs.Dropbox.AppSecret, Configs.Dropbox.Token)
 }
 
-func readFile(src string) ([]string) {
+func readFile(src string) []string {
 	var finishedMember []string
 	if fp, err = os.Open(os.Getenv("HOME") + Configs.File.LocalPath); err != nil {
 		createFile()
@@ -47,7 +48,7 @@ func readFile(src string) ([]string) {
 }
 
 func createFile() {
-	if fp, err = os.OpenFile(os.Getenv("HOME") + Configs.File.LocalPath, os.O_RDWR | os.O_CREATE | os.O_APPEND, 0666); err != nil {
+	if fp, err = os.OpenFile(os.Getenv("HOME")+Configs.File.LocalPath, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666); err != nil {
 		panic(err)
 	}
 }
@@ -58,7 +59,7 @@ func writeFile(finishedMember []string) {
 		buffer.WriteString(val + "\n")
 	}
 	content := []byte(buffer.String())
-	if err = ioutil.WriteFile(os.Getenv("HOME") + Configs.File.LocalPath, content, os.ModePerm); err != nil {
+	if err = ioutil.WriteFile(os.Getenv("HOME")+Configs.File.LocalPath, content, os.ModePerm); err != nil {
 		panic(err)
 	}
 }

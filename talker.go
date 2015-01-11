@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+
 	"github.com/BurntSushi/toml"
 	"github.com/codegangsta/cli"
 )
@@ -10,19 +11,19 @@ var Configs Config
 
 type Config struct {
 	Dropbox DropboxConfig
-	File FileConfig
-	Talker TalkerConfig
+	File    FileConfig
+	Talker  TalkerConfig
 }
 
 type DropboxConfig struct {
-	AppKey string `toml:"appKey"`
+	AppKey    string `toml:"appKey"`
 	AppSecret string `toml:"appSecret"`
-	Token string `toml:"token"`
+	Token     string `toml:"token"`
 }
 
 type FileConfig struct {
 	RemotePath string `toml:"remotePath"`
-	LocalPath string `toml:"localPath"`
+	LocalPath  string `toml:"localPath"`
 }
 
 type TalkerConfig struct {

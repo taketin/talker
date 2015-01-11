@@ -5,7 +5,7 @@ import (
 )
 
 func TestChoosingBy(t *testing.T) {
-	chooseFrom := []string {
+	chooseFrom := []string{
 		"hoge",
 		"fuga",
 		"piyo",

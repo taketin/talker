@@ -1,6 +1,6 @@
 package main
 
-import(
+import (
 	"math/rand"
 	"time"
 )
@@ -29,7 +29,7 @@ func chooseTalker(members []string, save bool) (talker string, isLast bool) {
 	return
 }
 
-func getDiff(members []string, finishedMember []string) ([]string) {
+func getDiff(members []string, finishedMember []string) []string {
 	for _, val := range finishedMember {
 		for key2, val2 := range members {
 			if val == val2 {
@@ -41,7 +41,7 @@ func getDiff(members []string, finishedMember []string) ([]string) {
 	return members
 }
 
-func choosingBy(members []string) (string) {
+func choosingBy(members []string) string {
 	rand.Seed(time.Now().Unix())
 	order := rand.Intn(len(members))
 
