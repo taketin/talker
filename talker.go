@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"path/filepath"
 
 	"github.com/BurntSushi/toml"
 	"github.com/codegangsta/cli"
@@ -31,7 +32,8 @@ type TalkerConfig struct {
 }
 
 func main() {
-	if _, err = toml.DecodeFile("config.tml", &Configs); err != nil {
+	configPath := filepath.Join( os.Getenv("GOPATH"), "config", "talker", "config.tml")
+	if _, err = toml.DecodeFile(configPath, &Configs); err != nil {
 		panic(err)
 	}
 
