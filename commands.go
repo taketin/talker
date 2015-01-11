@@ -1,17 +1,21 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
-	"fmt"
 	"strings"
+
 	"github.com/codegangsta/cli"
 )
 
 var Commands = []cli.Command{
 	commandSelect,
-    commandRewind,
+	commandRewind,
 	commandForward,
+	commandMembers,
+	commandFinishedMembers,
+	commandCurrent,
 }
 
 var selectFlags = []cli.Flag{
@@ -20,7 +24,7 @@ var selectFlags = []cli.Flag{
 }
 
 var commandSelect = cli.Command{
-	Name:  "select",
+	Name: "select",
 	Usage: `
 	Choose talker. The options are as follows:
 
@@ -31,7 +35,7 @@ var commandSelect = cli.Command{
 	Description: `
 `,
 	Action: doSelect,
-	Flags: selectFlags,
+	Flags:  selectFlags,
 }
 
 var commandRewind = cli.Command{
@@ -42,12 +46,36 @@ var commandRewind = cli.Command{
 	Action: doRewind,
 }
 
+var commandMembers = cli.Command{
+	Name:  "members",
+	Usage: "Show all members.",
+	Description: `
+`,
+	Action: doMembers,
+}
+
+var commandFinishedMembers = cli.Command{
+	Name:  "finished",
+	Usage: "Shows a list of selected users from strage.",
+	Description: `
+`,
+	Action: doFinishedMembers,
+}
+
 var commandForward = cli.Command{
 	Name:  "forward",
 	Usage: "Add the given talker in storage.",
 	Description: `
 `,
 	Action: doForward,
+}
+
+var commandCurrent = cli.Command{
+	Name:  "current",
+	Usage: "Show current talkers.",
+	Description: `
+`,
+	Action: doCurrent,
 }
 
 func debug(v ...interface{}) {
@@ -79,8 +107,8 @@ func doSelect(c *cli.Context) {
 
 	fmt.Printf("%s \n", talker)
 
-	if (isLast) {
-		println("🍣🍣🍣  ALL members done! start the next round. 🍺🍺🍺")
+	if isLast {
+		println("🍣🍣🍣  All members has been completed! start the next round. 🍺🍺🍺\n")
 	}
 }
 
@@ -104,4 +132,28 @@ func doForward(c *cli.Context) {
 	finishedMember = append(finishedMember, name)
 	saveFinishedMember(finishedMember)
 	fmt.Printf("'%s' add to storage.\n", name)
+}
+
+func doMembers(c *cli.Context) {
+	members := strings.Split(Configs.Talker.Members, ",")
+	for _, member := range members {
+		fmt.Printf("%s\n", member)
+	}
+}
+
+func doFinishedMembers(c *cli.Context) {
+	finishedMembers := finishedMemberFromStrage()
+	for _, finishedMember := range finishedMembers {
+		fmt.Printf("%s\n", finishedMember)
+	}
+}
+
+func doCurrent(c *cli.Context) {
+	currentNum := 2
+
+	finishedMembers := finishedMemberFromStrage()
+	currents := finishedMembers[len(finishedMembers) - currentNum:]
+	for _, current := range currents {
+		fmt.Printf("%s\n", current)
+	}
 }
